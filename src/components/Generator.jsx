@@ -14,17 +14,17 @@ function Generator() {
     const setting = formData.get("setting");
     const plot = formData.get("plot");
 
-    const prompt = `Write a story about ${characters} in ${setting} where ${plot}.`;
+    const prompt = `Write a fan fiction story about ${characters} in ${setting} where ${plot}.`;
 
     try {
       const response = await axios.post(
         "https://api.openai.com/v1/engines/davinci/completions",
         {
-          prompt: prompt,
+          prompt,
           max_tokens: 1024,
-          temperature: 0.4,
+          temperature: 0.7,
           n: 1,
-          stop: ["\n"],
+          stop: ["\n\n"],
         },
         {
           headers: {
@@ -33,6 +33,7 @@ function Generator() {
           },
         }
       );
+
       const generatedStory =
         response.data.choices.length > 0
           ? response.data.choices[0].text
